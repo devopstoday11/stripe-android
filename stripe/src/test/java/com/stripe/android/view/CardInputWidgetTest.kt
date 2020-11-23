@@ -1022,25 +1022,29 @@ internal class CardInputWidgetTest {
         // |(peek==20)--(space==205)--(date==50)--(space==195)--(cvc==30)|
         updateCardNumberAndIdle(DINERS_CLUB_14_WITH_SPACES)
 
+        val expectedPlacement = CardInputWidgetPlacement(
+            totalLengthInPixels = SCREEN_WIDTH,
+            cardWidth = 230,
+            hiddenCardWidth = 120,
+            peekCardWidth = 20,
+            cardDateSeparation = 205,
+            dateWidth = 50,
+            dateCvcSeparation = 195,
+            cvcWidth = 30,
+            cvcPostalCodeSeparation = 0,
+            postalCodeWidth = 100,
+            cvcStartPosition = 530,
+            dateEndTouchBufferLimit = 432,
+            cardTouchBufferLimit = 182,
+            dateStartPosition = 285
+        )
+
+        require(cardInputWidget.placement == expectedPlacement) {
+            "Actual placement != expected placement: ${cardInputWidget.placement}"
+        }
+
         assertThat(cardInputWidget.placement)
-            .isEqualTo(
-                CardInputWidgetPlacement(
-                    totalLengthInPixels = SCREEN_WIDTH,
-                    cardWidth = 230,
-                    hiddenCardWidth = 120,
-                    peekCardWidth = 20,
-                    cardDateSeparation = 205,
-                    dateWidth = 50,
-                    dateCvcSeparation = 195,
-                    cvcWidth = 30,
-                    cvcPostalCodeSeparation = 0,
-                    postalCodeWidth = 100,
-                    cvcStartPosition = 530,
-                    dateEndTouchBufferLimit = 432,
-                    cardTouchBufferLimit = 182,
-                    dateStartPosition = 285
-                )
-            )
+            .isEqualTo(expectedPlacement)
     }
 
     @Test
